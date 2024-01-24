@@ -19,8 +19,10 @@ public class TrafficFlowB extends Thread{
                 System.out.println("Carros passando no cruzamento B");
                 sleep(rand.nextInt(5000));
                 carro.release();
-                sleep(rand.nextInt(8000));
+                System.out.println("Carros esperando no cruzamento B");
+                sleep(rand.nextInt(5000,8000));
             }
+            System.out.println("Nenhum carro presente no cruzamento B");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

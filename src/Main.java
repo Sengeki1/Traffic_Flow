@@ -10,20 +10,28 @@ public class Main {
         Semaphore carros = new Semaphore(1);
         System.out.println("***  Cruzamento  ***");
 
-        Thread TrafegoA = new TrafficFlowA(carros);
-        Thread TrafegoB = new TrafficFlowB(carros);
+        TrafficFlowA TrafegoA = new TrafficFlowA(carros);
+        TrafficFlowB TrafegoB = new TrafficFlowB(carros);
         TrafegoA.start();
         TrafegoB.start();
 
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                ((TrafficFlowA) TrafegoA).exit();
-                ((TrafficFlowB) TrafegoB).exit();
+                TrafegoA.exit();
+                TrafegoB.exit();
                 timer.cancel();
             }
         };
 
         timer.schedule(task, 15000);
+
+        try {
+            TrafegoA.join();
+            TrafegoB.join();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Nenhum carro esta presente nos cruzamentos");
     }
 }

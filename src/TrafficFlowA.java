@@ -18,8 +18,9 @@ public class TrafficFlowA extends Thread{
                 sleep(rand.nextInt(6000));
                 carro.release();
                 System.out.println("Carros esperando no cruzamento A");
-                sleep(rand.nextInt(7000));
+                sleep(rand.nextInt(4000,7000));
             }
+            System.out.println("Carros passando no cruzamento A");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
